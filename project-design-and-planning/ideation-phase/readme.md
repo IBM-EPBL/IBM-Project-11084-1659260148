@@ -1,1 +1,0 @@
-# Ideation phase documents
