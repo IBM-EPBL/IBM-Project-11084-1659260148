@@ -1,0 +1,36 @@
+
+<!--
+   Yet to be completed sprint 4
+-->
+
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+   <head>
+      <meta charset="utf-8">
+      <title> Prediction form</title>
+      <!-- <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}"> -->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body>
+      <div>
+        <form action="{{ url_for('y_predict') }}" method="post">
+            <input name="regyear"> <br>
+            <input name="powerps"> <br>
+            <input name="kms"> <br>
+            <input name="regmonth"> <br>
+            <input name="gearbox"> <br>
+            <input name="dam"> <br>
+            <input name="modeltype"> <br>
+            <input name="brand"> <br>
+            <input name="fuel"> <br>
+            <input name="vehicletype"> <br>
+            <input type="submit" value="Predict now">
+        </form>
+      </div>
+      <script>
+         
+      </script>
+   </body>
+</html>
