@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/Prediction.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> 
+</head>
+<body>
+    <form class="form-horizontal" action="{{ url_for('y_predict') }}" method="post">
+        <fieldset>        
+        <h2 class="text-center">Car Resale Value Prediction</h2>
+        <br>           
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="regyear">Registration Year</label>  
+          <div class="col-md-4">
+          <input name="regyear" type="text" class="form-control input-md" required>            
+          </div>
+        </div>        
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="selectMonth">Registration Month</label>
+          <div class="col-md-4">
+            <select name="regmonth" class="form-control" id="selectMonth">
+              <option value="january">january</option>
+            </select>
+          </div>
+        </div>        
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="powerps">Power of car in PS</label>  
+          <div class="col-md-4">
+          <input name="powerps" type="text" class="form-control input-md" required>            
+          </div>
+        </div>        
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="kms">Kilometres that car has driven</label>  
+          <div class="col-md-4">
+          <input name="kms" type="text" placeholder="" class="form-control input-md" required>            
+          </div>
+        </div>        
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="radios">Gear Box Types</label>
+          <div class="col-md-4">
+          <div class="radio">
+            <label for="radios-0">
+              <input type="radio" name="gearbox" id="radios-0" value="manual" checked="checked">
+              Manual
+            </label>
+            </div>
+          <div class="radio">
+            <label for="radios-1">
+              <input type="radio" name="gearbox" id="radios-1" value="automatic">
+              Automatic
+            </label>
+            </div>
+          <div class="radio">
+            <label for="radios-2">
+              <input type="radio" name="gearbox" id="radios-2" value="not-declared">
+              Not declared
+            </label>
+            </div>
+          </div>
+        </div>        
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="radios">Your Car is Damaged or repaired</label>
+          <div class="col-md-4">
+          <div class="radio">
+            <label for="radios-0">
+              <input type="radio" name="dam" id="radios-0" value="Yes" checked="checked">
+              Yes
+            </label>
+            </div>
+          <div class="radio">
+            <label for="radios-1">
+              <input type="radio" name="dam" id="radios-1" value="No">
+              No
+            </label>
+            </div>
+          <div class="radio">
+            <label for="radios-2">
+              <input type="radio" name="dam" id="radios-2" value="not-declared">
+              Not declared
+            </label>
+            </div>
+          </div>
+        </div>        
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="fuel">Fuel Type of the car</label>
+          <div class="col-md-4">
+            <select name="fuel" class="form-control"  id="selectFuel">
+              <option value="not-declared">not-declared</option>
+              
+            </select>
+          </div>
+        </div>        
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="vehicletype">Vehicle Type</label>
+          <div class="col-md-4">
+            <select name="vehicletype" class="form-control" id="selectVehicle">
+              <option value="not declared">not declared</option>
+              
+            </select>
+          </div>
+        </div>        
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="modeltype">Model Type</label>
+          <div class="col-md-4">
+            <select name="modeltype" class="form-control" id="selectModel">
+              <option value="not-declared">not-declared</option>
+              
+            </select>
+          </div>
+        </div>        
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="brand">Brand of the car</label>
+          <div class="col-md-4">
+            <select name="brand" class="form-control" id="selectBrand">
+            </select>
+          </div>
+        </div>        
+        <div class="form-group">
+          <label class="col-md-4 control-label" for=""></label>
+          <div class="col-md-4">
+            <button id="" name="" class="btn btn-success">Submit</button>
+          </div>
+        </div>        
+        </fieldset>
+        </form>
+        <div class="result-div">
+         <p>{{ data.result }}</p>
+     </div>   
+        <script>
+          let months=['january','february','march','april','may','june','july','august','september','october','november','december'];
+          let selectMonth=document.getElementById('selectMonth')
+          for(let i=0;i<months.length;i++){
+              let opt=months[i]
+              let el=document.createElement('option')
+              el.textContent=opt
+              el.value=opt
+              selectMonth.appendChild(el)
+          }
+  
+  
+          let modelType=['not-declared', 'grand', 'golf', 'fabia', '3er', '2_reihe',
+         'c_max', '3_reihe', 'passat', 'navara', 'polo', 'twingo',
+         'a_klasse', 'scirocco', '5er', 'andere', 'civic', 'punto',
+         'e_klasse', 'clio', 'kadett', 'one', 'fortwo', '1er', 'b_klasse',
+         'a8', 'jetta', 'c_klasse', 'micra', 'vito', 'sprinter', 'astra',
+         '156', 'escort', 'forester', 'xc_reihe', 'fiesta', 'scenic', 'ka',
+         'a1', 'transporter', 'focus', 'a4', 'tt', 'a6', 'jazz', 'omega',
+         'slk', '7er', 'combo', 'corsa', '80', '147', 'glk', 'z_reihe',
+         'sorento', 'ibiza', 'mustang', 'eos', 'touran', 'getz', 'insignia',
+         'almera', 'megane', 'a3', 'r19', 'caddy', 'mondeo', 'cordoba',
+         'colt', 'impreza', 'vectra', 'lupo', 'berlingo', 'm_klasse',
+         'tiguan', '6_reihe', 'c4', 'panda', 'up', 'i_reihe', 'ceed',
+         'kangoo', '5_reihe', 'yeti', 'octavia', 'zafira', 'mii',
+         'rx_reihe', '6er', 'modus', 'fox', 'matiz', 'beetle', 'rio',
+         'touareg', 'logan', 'spider', 'cuore', 's_max', 'a2', 'x_reihe',
+         'a5', 'galaxy', 'c3', 'viano', 's_klasse', '1_reihe', 'sharan',
+         'avensis', 'sl', 'roomster', 'q5', 'santa', 'leon', 'cooper',
+         '4_reihe', 'sportage', 'laguna', 'ptcruiser', 'clk', 'primera',
+         'espace', 'exeo', '159', 'transit', 'juke', 'v40', 'carisma',
+         'accord', 'corolla', 'lanos', 'phaeton', 'boxster', 'verso', 'rav',
+         'kuga', 'qashqai', 'swift', 'picanto', 'superb', 'stilo',
+         'alhambra', '911', 'm_reihe', 'roadster', 'ypsilon', 'galant',
+         'justy', '90', 'sirion', 'signum', 'crossfire', 'agila', 'duster',
+         'v50', 'mx_reihe', 'meriva', 'discovery', 'c_reihe', 'v_klasse',
+         'yaris', 'c5', 'aygo', 'seicento', 'cc', 'carnival', 'fusion',
+         'bora', 'cl', 'tigra', '300c', '500', '100', 'q3', 'cr_reihe',
+         'spark', 'x_type', 'ducato', 's_type', 'x_trail', 'toledo',
+         'altea', 'voyager', 'calibra', 'v70', 'bravo', 'range_rover',
+         'forfour', 'tucson', 'q7', 'c1', 'citigo', 'jimny', 'cx_reihe',
+         'cayenne', 'wrangler', 'lybra', 'range_rover_sport', 'lancer',
+         'freelander', 'captiva', 'range_rover_evoque', 'sandero', 'note',
+         'antara', '900', 'defender', 'cherokee', 'clubman', 'arosa',
+         'legacy', 'pajero', 'auris', 'c2', 'niva', 's60', 'nubira',
+         'vivaro', 'g_klasse', 'lodgy', '850', 'serie_2', 'charade',
+         'croma', 'outlander', 'gl', 'kaefer', 'doblo', 'musa', 'amarok',
+         '9000', 'kalos', 'v60', '200', '145', 'b_max', 'delta', 'aveo',
+         'rangerover', 'move', 'materia', 'terios', 'kalina', 'elefantino',
+         'i3', 'samara', 'kappa', 'serie_3', 'discovery_sport']
+  
+         let modelSelect=document.getElementById('selectModel')
+          for(let i=0;i<modelType.length;i++){
+              let opt=modelType[i]
+              let el=document.createElement('option')
+              el.textContent=opt
+              el.value=opt
+              modelSelect.appendChild(el)
+          }
+  
+  
+          let brands=['audi', 'jeep', 'volkswagen', 'skoda', 'bmw', 'peugeot', 'ford',
+         'mazda', 'nissan', 'renault', 'mercedes_benz', 'honda', 'fiat',
+         'opel', 'mini', 'smart', 'hyundai', 'alfa_romeo', 'subaru',
+         'volvo', 'mitsubishi', 'kia', 'seat', 'lancia', 'porsche',
+         'citroen', 'toyota', 'chevrolet', 'dacia', 'suzuki', 'daihatsu',
+         'chrysler', 'sonstige_autos', 'jaguar', 'daewoo', 'rover', 'saab',
+         'land_rover', 'lada', 'trabant']
+  
+         let brandSelect=document.getElementById('selectBrand')
+          for(let i=0;i<brands.length;i++){
+              let opt=brands[i]
+              let el=document.createElement('option')
+              el.textContent=opt
+              el.value=opt
+              brandSelect.appendChild(el)
+          }
+  
+          let fuelType=['diesel', 'petrol', 'not-declared', 'lpg', 'others', 'hybrid',
+         'cng', 'electric']
+  
+         let fuelSelect=document.getElementById('selectFuel')
+         for(let i=0;i<fuelType.length;i++){
+           let opt=fuelType[i]
+              let el=document.createElement('option')
+              el.textContent=opt
+              el.value=opt
+              fuelSelect.appendChild(el)
+         }
+  
+         let vehicles=['coupe', 'suv', 'small car', 'limousine', 'convertible', 'bus',
+         'combination', 'not declared', 'others']
+          let vehicleSelect=document.getElementById('selectVehicle')
+         for(let i=0;i<vehicles.length;i++){
+           let opt=vehicles[i]
+              let el=document.createElement('option')
+              el.textContent=opt
+              el.value=opt
+              vehicleSelect.appendChild(el)
+         }
+  
+  
+      </script>  
+        </body>   
+</html>

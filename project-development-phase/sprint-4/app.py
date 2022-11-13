@@ -13,11 +13,11 @@ def index():
 
 @app.route('/predict')
 def predict():
-    return render_template('prediction.html')
+    return render_template('prediction.html',data = {'result' : ""})
 
 #method to predict from deployed model
 def predictFromDeploymentModel(userInput):
-    API_KEY = ""
+    API_KEY = "YOUR IBM API KEY"
     token_response = requests.post('https://iam.cloud.ibm.com/identity/token', data={"apikey":
     API_KEY, "grant_type": 'urn:ibm:params:oauth:grant-type:apikey'})
     mltoken = token_response.json()["access_token"]
@@ -77,12 +77,9 @@ def y_predict():
 
     labeled = new_df[['yearOfRegistration','powerPS','kilometer','monthOfRegistration']+[x+'_labels' for x in labels]]
     X = labeled.values
-    print(X)
-
-    predictFromDeploymentModel(list(X[0]))
-    
-
-    return render_template('prediction.html')
+    result = predictFromDeploymentModel(list(X[0]))
+    data = {"result" : "Predicted price - $ "+str(round(result,2))}
+    return render_template('prediction.html' , data = data)
 
 
 if __name__ == '__main__':
