@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/index.css') }}">
+</head>
+<body>
+    <div class="content">
+            <h1>CRVP</h1>
+            <p>This application is used to predict the car resale value based on the condition and configuration of the car.</p>
+            <form action="{{ url_for('predict') }}" >
+                <input type="submit" value="Go to predict screen" class="btn">
+            </form>
+        </div>
+    <div class="feature">
+            <h2>Features</h2>
+            <p>This application takes in various vehicle configurations and predict the <br>
+                price at which the vehicle can be sold. It predicts the price with the accuracy of 86%.</p>
+    </div>
+
+     <div class="working">
+            <h2>How it works</h2>
+            <p>It uses random forest regression model, which is trained with a huge amount of past <br>
+                data. The model is deployes in the IBM cloud using Watson Machine learning.</p>
+    </div>
+
+
+</body>
+</html>
