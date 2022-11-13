@@ -17,7 +17,7 @@ def predict():
 
 #method to predict from deployed model
 def predictFromDeploymentModel(userInput):
-    API_KEY = "9i5I7_kTIbzQ43aiiiO_hhuldFJB6e7-ILb3fsoLh3U8"
+    API_KEY = "YOUR IBM API KEY"
     token_response = requests.post('https://iam.cloud.ibm.com/identity/token', data={"apikey":
     API_KEY, "grant_type": 'urn:ibm:params:oauth:grant-type:apikey'})
     mltoken = token_response.json()["access_token"]
